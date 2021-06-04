@@ -1,0 +1,2 @@
+#example command
+blastn -task blastn -db /data/huangx12/XinHuang/Cauris/Candida_speciation/second_attempt/Candida_species_ITS1.trimmed.cdhit1.0.fa -query input.CDC_pilot.sub5000.chop.fasta -out CDC_pilot_sub5000.v.CandidaITS1.blastn.out -evalue 1e-6 -outfmt 6 -num_threads 32 -max_target_seqs 10
