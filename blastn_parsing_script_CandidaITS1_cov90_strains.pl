@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 #in: blastx output file, -outfmt 6
-my $in = shift @ARGV or die $!;
+my $in = shift @ARGV or die "please supply input file\n";
 #fa: fasta file for the query
 my $aln_len_cutoff = shift @ARGV or die $!;
 my $pid_cutoff = shift @ARGV or die $!;
@@ -80,7 +80,8 @@ open ( my $OUT, ">$out" ) or die "can't open $out\n";
 # East Asian = II
 # African = III
 # S. American = IV
-print $OUT "Sample\tCladeI\tCladeIII\tCladeII\tCladeIV\n";
+#we can't differentiate clade I from clade III, per the manuscript - 2024Sep30 - SC
+print $OUT "Sample\tCladeI-III\tCladeII\tCladeIV\n";
 foreach my $sample_key ( sort keys %gr_hash ){ 
     my $SouthAsian = 0;
     my $African = 0;
@@ -98,7 +99,8 @@ foreach my $sample_key ( sort keys %gr_hash ){
 	    $SouthAmerican ++ if ($cauris_hash{$read_key} eq 'Venezuela');
 	}
     }
-    print $OUT "$sample_key\t$SouthAsian\t$African\t$EastAsian\t$SouthAmerican\n";
+    #we can't differentiate clade I from clade III, per the manuscript - 2024Sep30 - SC
+    print $OUT "$sample_key\t".($SouthAsian+$African)."\t$EastAsian\t$SouthAmerican\n";
 }
 close $OUT;
 exit;
